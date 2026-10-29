@@ -25,18 +25,18 @@ import androidx.compose.ui.unit.sp
  var exportError by remember{mutableStateOf(false)}
  val writeFile=rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("text/plain")){uri->if(uri!=null){exportError=runCatching{context.contentResolver.openOutputStream(uri)!!.bufferedWriter().use{it.write(p.export(en))}}.isFailure}}
  LazyColumn(Modifier.fillMaxSize(),contentPadding=PaddingValues(LocalUiSizing.current.pagePadding),verticalArrangement=Arrangement.spacedBy(16.dp)) {
-  item {PageTitle(tr(en,"ВАШИЯТ / ПЛАН","YOUR / PLAN"),p.title,tr(en,"Следвайте стъпките и отваряйте свързаните статии с код.","Follow the steps and open the linked articles with code."))}
-  item {Panel(Modifier.fillMaxWidth()){Kicker(tr(en,"ВАШАТА ЗАДАЧА","YOUR TASK"));Body(tr(en,"Вход: ","Input: ")+p.input);Body(tr(en,"Резултат: ","Output: ")+p.output);Body(tr(en,"Проверка: ","Check: ")+p.check);Body(tr(en,"Проверяващ: ","Reviewer: ")+p.reviewer)}}
-  p.route(en).forEachIndexed{i,step->item{val book=books.getValue(step.articleId);Panel(Modifier.fillMaxWidth()){Kicker("${i+1} / ${p.route(en).size}");Text(book.title(en),fontSize=responsiveSp(24),lineHeight=responsiveSp(29));Body(step.instruction);PrimaryActionButton({onRead(step.articleId)},Modifier.fillMaxWidth()){Text(tr(en,"Отворете статията →","Open article →"))}}}}
+  item {PageTitle(tr(en,"YOUR / PLAN","YOUR / PLAN"),p.title,tr(en,"Follow the steps and open the linked articles with code.","Follow the steps and open the linked articles with code."))}
+  item {Panel(Modifier.fillMaxWidth()){Kicker(tr(en,"YOUR TASK","YOUR TASK"));Body(tr(en,"Input: ","Input: ")+p.input);Body(tr(en,"Output: ","Output: ")+p.output);Body(tr(en,"Check: ","Check: ")+p.check);Body(tr(en,"Reviewer: ","Reviewer: ")+p.reviewer)}}
+  p.route(en).forEachIndexed{i,step->item{val book=books.getValue(step.articleId);Panel(Modifier.fillMaxWidth()){Kicker("${i+1} / ${p.route(en).size}");Text(book.title(en),fontSize=responsiveSp(24),lineHeight=responsiveSp(29));Body(step.instruction);PrimaryActionButton({onRead(step.articleId)},Modifier.fillMaxWidth()){Text(tr(en,"Open article →","Open article →"))}}}}
   item {
    val saving=feedback.planId==p.id && feedback.status=="saving"
    if(saved) SaveConfirmation(animationEvent,playSave,en){playSave=false}
-   if(feedback.planId==p.id && feedback.status=="error")Body(tr(en,"Неуспешен запис. Опитайте отново.","Could not save. Please try again."))
-   PrimaryActionButton(onSave,Modifier.fillMaxWidth(),enabled=!saving){Text(if(saving)tr(en,"Запазване…","Saving…")else if(saved)tr(en,"✓ Планът е запазен","✓ Plan saved")else tr(en,"Запазете плана","Save plan"))}
+   if(feedback.planId==p.id && feedback.status=="error")Body(tr(en,"Could not save. Please try again.","Could not save. Please try again."))
+   PrimaryActionButton(onSave,Modifier.fillMaxWidth(),enabled=!saving){Text(if(saving)tr(en,"Saving…","Saving…")else if(saved)tr(en,"✓ Plan saved","✓ Plan saved")else tr(en,"Save plan","Save plan"))}
   }
-  item {ActionButton({export=true},Modifier.fillMaxWidth()){Text(tr(en,"Преглед и експорт","Preview and export"))}}
-  item {ActionButton(onEdit,Modifier.fillMaxWidth()){Text(tr(en,"Редактирайте отговорите","Edit answers"))}}
-  item {ActionButton(onAbout,Modifier.fillMaxWidth()){Text(tr(en,"Обсъдете реализацията →","Discuss implementation →"))}}
+  item {ActionButton({export=true},Modifier.fillMaxWidth()){Text(tr(en,"Preview and export","Preview and export"))}}
+  item {ActionButton(onEdit,Modifier.fillMaxWidth()){Text(tr(en,"Edit answers","Edit answers"))}}
+  item {ActionButton(onAbout,Modifier.fillMaxWidth()){Text(tr(en,"Contacts and information →","Contacts and information →"))}}
  }
- if(export) androidx.compose.ui.window.Dialog(onDismissRequest={export=false}) {Surface(shape=MaterialTheme.shapes.large){Column(Modifier.padding(LocalUiSizing.current.panelPadding),verticalArrangement=Arrangement.spacedBy(12.dp)){Text(tr(en,"Преглед на плана","Plan preview"),fontSize=responsiveSp(24),lineHeight=responsiveSp(29));Box(Modifier.weight(1f,false).heightIn(max=400.dp).verticalScroll(rememberScrollState())){Text(p.export(en))};if(exportError)Text(tr(en,"Неуспешен запис. Опитайте отново.","Could not write the file. Please try again."));ActionButton({writeFile.launch("LIK-LAK-plan-${p.id.take(8)}.txt")}){Text(tr(en,"Запазете TXT файл","Save TXT file"))};ActionButton({copy(context,p.export(en),en)}){Text(tr(en,"Копиране","Copy"))};ActionButton({export=false}){Text(tr(en,"Затворете","Close"))}}}}
+ if(export) androidx.compose.ui.window.Dialog(onDismissRequest={export=false}) {Surface(shape=MaterialTheme.shapes.large){Column(Modifier.padding(LocalUiSizing.current.panelPadding),verticalArrangement=Arrangement.spacedBy(12.dp)){Text(tr(en,"Plan preview","Plan preview"),fontSize=responsiveSp(24),lineHeight=responsiveSp(29));Box(Modifier.weight(1f,false).heightIn(max=400.dp).verticalScroll(rememberScrollState())){Text(p.export(en))};if(exportError)Text(tr(en,"Could not write the file. Please try again.","Could not write the file. Please try again."));ActionButton({writeFile.launch("LIK-LAK-plan-${p.id.take(8)}.txt")}){Text(tr(en,"Save TXT file","Save TXT file"))};ActionButton({copy(context,p.export(en),en)}){Text(tr(en,"Copy","Copy"))};ActionButton({export=false}){Text(tr(en,"Close","Close"))}}}}
 }

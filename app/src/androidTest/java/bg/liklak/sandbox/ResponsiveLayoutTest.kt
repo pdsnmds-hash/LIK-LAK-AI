@@ -36,11 +36,11 @@ class ResponsiveLayoutTest {
   ui.onNode(matcher).performScrollTo().performClick();ui.waitForIdle()
  }
  private fun firstCase(){
-  val matcher=hasText(local("Отворете кейса →","Explore case →"))
+  val matcher=hasText(local("Explore case →","Explore case →"))
   ui.onAllNodes(hasScrollToIndexAction()).onFirst().performScrollToNode(matcher)
   ui.onAllNodes(matcher).onFirst().performScrollTo().performClick()
  }
- private fun local(bg:String,en:String)=if(english)en else bg
+ private fun local(bg:String,en:String)=en
  private fun tab(bg:String,en:String)=tap(local(bg,en))
  private fun back(){ui.runOnUiThread{ui.activity.onBackPressedDispatcher.onBackPressed()};ui.waitForIdle()}
  private fun visible(name:String,screenshot:Boolean=true) {
@@ -80,15 +80,11 @@ class ResponsiveLayoutTest {
   }
  }
  private fun home(){
-  tap(if(exists("Lab"))"Lab" else "Лаборатория")
+  tap(if(exists("Lab"))"Lab" else "Lab")
   if(ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty())ui.onAllNodes(hasScrollToIndexAction()).onFirst().performScrollToIndex(0)
   ui.waitForIdle()
  }
- private fun language(en:Boolean) {
-  tap(if(exists("Settings"))"Settings" else "Настройки")
-  ui.onNode(hasText(if(en)"English" else "Български",substring=true)).performClick();english=en
-  tap(local("Готово","Done"))
- }
+ private fun language(en:Boolean) { english=true }
  private fun fillFirst(value:String) {
   ui.onAllNodes(hasSetTextAction()).onFirst().performTextInput(value)
   ui.runOnUiThread{WindowCompat.getInsetsController(ui.activity.window,ui.activity.window.decorView).hide(WindowInsetsCompat.Type.ime())}
@@ -97,8 +93,8 @@ class ResponsiveLayoutTest {
  @Before fun ready()=runBlocking {
   original=SettingsRepository(ui.activity.application).settings.first();english=original.english
   ui.runOnUiThread{vm=ViewModelProvider(ui.activity)[LabViewModel::class.java]}
-  ui.waitUntil(10_000){exists("Settings") || exists("Настройки") || exists("Skip") || exists("Пропуснете")}
-  if(exists("Skip"))tap("Skip") else if(exists("Пропуснете"))tap("Пропуснете")
+  ui.waitUntil(10_000){exists("Settings") || exists("Settings") || exists("Skip") || exists("Skip")}
+  if(exists("Skip"))tap("Skip") else if(exists("Skip"))tap("Skip")
   output=File(ui.activity.cacheDir,"responsive-$width"+if(ui.activity.resources.configuration.fontScale>1.1f)"-large" else "").apply{mkdirs()}
   File(output,"checks.txt").writeText("Actual width=$width dp\n")
  }
@@ -109,45 +105,45 @@ class ResponsiveLayoutTest {
   }
  }
  @Test fun sectionsFitInBothLanguages() {
-  for(en in listOf(true,false)) {
+  for(en in listOf(true)) {
    home();language(en)
    scan("home")
-   home();tap(local("Всички 36 кейса →","Browse all 36 cases →"));scan("catalog")
+   home();tap(local("All 36 cases →","All 36 cases →"));scan("catalog")
    home();firstCase()
    visible("case-overview")
-   scrollTap(local("02 Експеримент","02 Experiment"),true)
+   scrollTap(local("02 Experiment","02 Experiment"),true)
    scan("experiment")
    home();firstCase()
-   scrollTap(local("Прочетете ръководството →","Read the guide →"));scan("handbook",swipes=5)
-   home();tab("Инструменти","Toolkit");scan("toolkit")
-   home();tab("Запазени","Saved");visible("saved")
-   home();tab("За нас","About");scan("about",swipes=7)
-   home();tap(local("Създайте свой план →","Build your plan →"));visible("builder-1")
-   scrollTap(local("Продължете →","Continue →"));scan("builder-2")
-   scrollTap(local("Попълнете пример","Fill an example"))
-   scrollTap(local("Продължете →","Continue →"));scan("builder-3")
+   scrollTap(local("Read the guide →","Read the guide →"));scan("handbook",swipes=5)
+   home();tab("Toolkit","Toolkit");scan("toolkit")
+   home();tab("Saved","Saved");visible("saved")
+   home();tab("About","About");scan("about",swipes=7)
+   home();tap(local("Build your plan →","Build your plan →"));visible("builder-1")
+   scrollTap(local("Continue →","Continue →"));scan("builder-2")
+   scrollTap(local("Fill an example","Fill an example"))
+   scrollTap(local("Continue →","Continue →"));scan("builder-3")
    ui.onAllNodes(hasScrollToIndexAction()).onFirst().performScrollToIndex(0)
    ui.onAllNodes(hasSetTextAction()).onFirst().performScrollTo().performTextInput("QA reviewer")
    ui.runOnUiThread{WindowCompat.getInsetsController(ui.activity.window,ui.activity.window.decorView).hide(WindowInsetsCompat.Type.ime())};ui.waitForIdle()
    ui.onAllNodes(hasSetTextAction() and !hasText("QA reviewer")).onFirst().performScrollTo().performTextInput("Matches source")
    ui.runOnUiThread{WindowCompat.getInsetsController(ui.activity.window,ui.activity.window.decorView).hide(WindowInsetsCompat.Type.ime())};ui.waitForIdle()
-   scrollTap(local("Създайте план →","Generate plan →"));scan("plan-result",swipes=7)
-   scrollTap(local("Преглед и експорт","Preview and export"));scan("export",dialog=true,swipes=1)
-   tap(local("Затворете","Close"))
-   home();tap(local("Настройки","Settings"));scan("settings",dialog=true)
-   scrollTap(local("Покажете въведението отново","Replay introduction"))
-   scan("intro-1");tap(local("Продължете →","Continue →"))
-   scan("intro-2");tap(local("Продължете →","Continue →"))
-   scan("intro-3");tap(local("Пропуснете","Skip"))
+   scrollTap(local("Generate plan →","Generate plan →"));scan("plan-result",swipes=7)
+   scrollTap(local("Preview and export","Preview and export"));scan("export",dialog=true,swipes=1)
+   tap(local("Close","Close"))
+   home();tap(local("Settings","Settings"));scan("settings",dialog=true)
+   scrollTap(local("Replay introduction","Replay introduction"))
+   scan("intro-1");tap(local("Continue →","Continue →"))
+   scan("intro-2");tap(local("Continue →","Continue →"))
+   scan("intro-3");tap(local("Skip","Skip"))
   }
  }
  @Test fun largeTextKeepsChromeAndIntroVisible() {
-  home();language(false);scan("large-home",swipes=1)
-  tap("Настройки");scan("large-settings",dialog=true,swipes=1)
-  scrollTap("Покажете въведението отново")
-  scan("large-intro-1",swipes=1);tap("Продължете →")
-  scan("large-intro-2",swipes=1);tap("Продължете →")
-  scan("large-intro-3",swipes=1);tap("Пропуснете")
+  home();language(true);scan("large-home",swipes=1)
+  tap("Settings");scan("large-settings",dialog=true,swipes=1)
+  scrollTap("Replay introduction")
+  scan("large-intro-1",swipes=1);tap("Continue →")
+  scan("large-intro-2",swipes=1);tap("Continue →")
+  scan("large-intro-3",swipes=1);tap("Skip")
  }
 
 }

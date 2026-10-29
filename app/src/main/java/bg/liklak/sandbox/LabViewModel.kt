@@ -63,7 +63,7 @@ class LabViewModel(application: Application, private val state: SavedStateHandle
     val result=withContext(Dispatchers.Default) { ensureActive(); Engine.pretty(Engine.run(c.id,JsonParser.parseString(x.input),settings.value.english)) }
     ensureActive(); experiment.value=x.copy(status="success",result=result)
    } catch(e: CancellationException) { throw e }
-   catch(e: Exception) { experiment.value=x.copy(status="error",result=tr(settings.value.english,"Невалиден вход. Проверете задължителните полета и допустимите стойности.","Invalid input. Check required fields and permitted values.")) }
+   catch(e: Exception) { experiment.value=x.copy(status="error",result=tr(settings.value.english,"Invalid input. Check required fields and permitted values.","Invalid input. Check required fields and permitted values.")) }
   }
  }
  fun cancel() { job?.cancel(); experiment.value=experiment.value.copy(status="cancelled",result="") }

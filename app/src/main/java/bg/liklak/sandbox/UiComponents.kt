@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.sp
   Text(c.title(en),fontSize=responsiveSp(24),lineHeight=responsiveSp(28),fontWeight=FontWeight.SemiBold)
   Body(c.summary(en))
   HorizontalDivider(color=MaterialTheme.colorScheme.outline)
-  Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.SpaceBetween) {ActionButton(open){Text((if(c.interactive)tr(en,"Отворете кейса","Explore case") else tr(en,"Прочетете решението","Read the guide"))+" →")};if(bookmarked)Text("✓",color=MaterialTheme.colorScheme.primary)}
+  Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.SpaceBetween) {ActionButton(open){Text((if(c.interactive)tr(en,"Explore case","Explore case") else tr(en,"Read the guide","Read the guide"))+" →")};if(bookmarked)Text("✓",color=MaterialTheme.colorScheme.primary)}
  }
 }
 
@@ -39,8 +39,8 @@ import androidx.compose.ui.unit.sp
  var copied by remember(code) {mutableStateOf(false)}
  Column(verticalArrangement=Arrangement.spacedBy(4.dp)) {
   Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),horizontalArrangement=Arrangement.End) {
-   ActionButton({wrap=!wrap}){Text(tr(en,if(wrap)"Без пренасяне" else "Пренасяне",if(wrap)"No wrap" else "Wrap"),fontSize=responsiveSp(12))}
-   ActionButton({copy(context,code,en);copied=true}){Text(if(copied) tr(en,"✓ Копирано","✓ Copied") else tr(en,"Копиране","Copy"),fontSize=responsiveSp(12))}
+   ActionButton({wrap=!wrap}){Text(tr(en,if(wrap)"No wrap" else "Wrap",if(wrap)"No wrap" else "Wrap"),fontSize=responsiveSp(12))}
+   ActionButton({copy(context,code,en);copied=true}){Text(if(copied) tr(en,"✓ Copied","✓ Copied") else tr(en,"Copy","Copy"),fontSize=responsiveSp(12))}
   }
   Surface(color=MaterialTheme.colorScheme.background,shape=RoundedCornerShape(8.dp),modifier=Modifier.fillMaxWidth()) {
    SelectionContainer { Text(code,fontFamily=FontFamily.Monospace,fontSize=size.sp,lineHeight=(size+7).sp,color=MaterialTheme.colorScheme.secondary,modifier=Modifier.then(if(wrap)Modifier else Modifier.horizontalScroll(rememberScrollState())).padding(16.dp)) }

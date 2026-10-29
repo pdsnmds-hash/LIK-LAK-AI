@@ -22,14 +22,14 @@ object Engine {
     val policy = field("policy"); require(policy.isNotBlank()) { "policy" }
     val formal = field("tone") == "formal"
     val known = field("intent") in listOf("delivery","billing","support")
-    val start = tr(en, if(formal) "Благодарим Ви за запитването." else "Благодарим за заявката.", if(formal) "Thank you for contacting our team." else "Thank you for your request.")
-    val end = if(known) tr(en,"Моля, уточнете необходимия обхват на услугата.","Please specify the required service scope.") else tr(en,"Моля, уточнете въпроса за преглед от оператор.","Please clarify your question for an operator to review.")
+    val start = tr(en, if(formal) "Thank you for contacting our team." else "Thank you for your request.", if(formal) "Thank you for contacting our team." else "Thank you for your request.")
+    val end = if(known) tr(en,"Please specify the required service scope.","Please specify the required service scope.") else tr(en,"Please clarify your question for an operator to review.","Please clarify your question for an operator to review.")
     json(mapOf("draft" to "$start $policy $end", "status" to "awaiting_review"))
    }
    "03-sop" -> {
     val steps = text().split(';').map { it.trim() }.filter { it.isNotEmpty() }.mapIndexed { index, s -> mapOf("order" to index+1, "action" to s) }
     require(steps.isNotEmpty()) { "steps" }
-    json(mapOf("title" to tr(en,"Процес за заявки","Request workflow"),"steps" to steps,"unresolved_questions" to listOf(tr(en,"Кой одобрява черновата?","Who approves the draft?"))))
+    json(mapOf("title" to tr(en,"Request workflow","Request workflow"),"steps" to steps,"unresolved_questions" to listOf(tr(en,"Who approves the draft?","Who approves the draft?"))))
    }
    "04-knowledge" -> {
     val kb = mapOf("KB-01" to "Documents are organized in folders by process.", "KB-02" to "Customer requests need an assigned status.")
@@ -63,7 +63,7 @@ object Engine {
    }
    "09-brief" -> {
     require(listOf("process","input","output").all { field(it).isNotBlank() }) { "brief" }
-    json(mapOf("scope" to field("process"),"input" to field("input"),"output" to field("output"),"execution" to field("execution").ifEmpty {"local"},"human_approval" to true,"exclusions" to listOf(tr(en,"Автоматични външни действия","Automatic external actions")),"acceptance" to listOf(tr(en,"Валидна категория","Valid category"),tr(en,"Причината посочва входа","Reason references input"))))
+    json(mapOf("scope" to field("process"),"input" to field("input"),"output" to field("output"),"execution" to field("execution").ifEmpty {"local"},"human_approval" to true,"exclusions" to listOf(tr(en,"Automatic external actions","Automatic external actions")),"acceptance" to listOf(tr(en,"Valid category","Valid category"),tr(en,"Reason references input","Reason references input"))))
    }
    "10-evaluation" -> {
     val expected = input.asJsonObject.getAsJsonArray("expected"); val predicted = input.asJsonObject.getAsJsonArray("predicted")

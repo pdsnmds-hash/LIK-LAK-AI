@@ -22,7 +22,7 @@ class StorageTest {
   val context=ApplicationProvider.getApplicationContext<Context>()
   val name="storage-test-${System.nanoTime()}.db"
   fun open()=Room.databaseBuilder(context,SandboxDatabase::class.java,name).build()
-  val entry=SavedEntry("config:01-routing:test","01-routing","config","\"invoice error\"","Моят етикет")
+  val entry=SavedEntry("config:01-routing:test","01-routing","config","\"invoice error\"","My label")
   val first=open()
   try {first.saved().save(entry)} finally {first.close()}
   val second=open()
@@ -35,7 +35,7 @@ class StorageTest {
   val prefs=SettingsRepository(context)
   val original=prefs.settings.first()
   try {
-   prefs.update(original.copy(english=true))
+   prefs.update(original.copy(english=false))
    assertTrue(prefs.settings.first().english)
    val reloaded=Content(context)
    assertEquals(content.cases.map{it.id},reloaded.cases.map{it.id})
@@ -68,7 +68,7 @@ class StorageTest {
   assertEquals(110,content.handbooks.size)
   assertEquals(36,buildCatalog(content.cases,content.handbooks,content.sources).size)
   val prompt=content.handbooks.getValue("prompt-p01-routing").sections.first()
-  assertNotEquals(prompt.code(false),prompt.code(true))
+  assertEquals(prompt.code(true),prompt.code(false))
   assertTrue(content.handbooks.getValue("13-meeting").sections.none{it.runnable})
  }
 

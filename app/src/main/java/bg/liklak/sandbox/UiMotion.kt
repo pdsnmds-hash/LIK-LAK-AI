@@ -39,8 +39,8 @@ import com.airbnb.lottie.compose.*
 @Composable fun PlannerProgress(step:Int,en:Boolean,progress:Float) {
  val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.planner_progress))
  val enabled=motionEnabled()
- val labels=if(en)listOf("Choose","Describe","Check")else listOf("Избор","Описание","Проверка")
- Column(Modifier.fillMaxWidth().semantics(mergeDescendants=true){contentDescription=tr(en,"Стъпка ${step+1} от 3: ","Step ${step+1} of 3: ")+labels[step];progressBarRangeInfo=ProgressBarRangeInfo((step+1).toFloat(),1f..3f,1)},verticalArrangement=Arrangement.spacedBy(4.dp)) {
+ val labels=listOf("Choose","Describe","Check")
+ Column(Modifier.fillMaxWidth().semantics(mergeDescendants=true){contentDescription=tr(en,"Step ${step+1} of 3: ","Step ${step+1} of 3: ")+labels[step];progressBarRangeInfo=ProgressBarRangeInfo((step+1).toFloat(),1f..3f,1)},verticalArrangement=Arrangement.spacedBy(4.dp)) {
   LottieAnimation(composition,progress={if(enabled)progress else step.coerceIn(0,2)/2f},dynamicProperties=accentProperties(),modifier=Modifier.fillMaxWidth().height(64.dp).clearAndSetSemantics{})
   Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.SpaceBetween){labels.forEachIndexed{i,label->Text((if(i<step)"✓ " else "")+label,modifier=Modifier.weight(1f),textAlign=TextAlign.Center,color=if(i==step)MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant)}}
  }
@@ -57,6 +57,6 @@ import com.airbnb.lottie.compose.*
  }
  Row(Modifier.fillMaxWidth().semantics(mergeDescendants=true){liveRegion=LiveRegionMode.Polite},verticalAlignment=Alignment.CenterVertically) {
   LottieAnimation(composition,progress={if(play && enabled)animation.progress else 1f},dynamicProperties=accentProperties(),modifier=Modifier.size(64.dp).clearAndSetSemantics{})
-  Text(tr(en,"Планът е запазен на устройството.","Plan saved on this device."),color=MaterialTheme.colorScheme.primary)
+  Text(tr(en,"Plan saved on this device.","Plan saved on this device."),color=MaterialTheme.colorScheme.primary)
  }
 }

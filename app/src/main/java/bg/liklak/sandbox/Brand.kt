@@ -10,5 +10,5 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 
 @Composable fun BrandMark(size:Dp,en:Boolean) {
- Image(painterResource(R.drawable.brand_mark),tr(en,"Лого на LIK LAK AI Sandbox","LIK LAK AI Sandbox logo"),modifier=Modifier.size(size).clip(RoundedCornerShape(size*.22f)))
+ Image(painterResource(R.drawable.brand_mark),tr(en,"LIK LAK AI Sandbox logo","LIK LAK AI Sandbox logo"),modifier=Modifier.size(size).clip(RoundedCornerShape(size*.22f)))
 }

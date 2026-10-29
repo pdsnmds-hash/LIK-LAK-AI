@@ -42,7 +42,7 @@ class HandbookTest {
  @Test fun deepSearchFindsAConceptAbsentFromTheCaseTitle() {
   val books=books().associateBy{it.id}
   assertTrue(books.getValue("04-knowledge").matches("cosine",true))
-  assertTrue(books.getValue("04-knowledge").matches("източник",false))
+  assertTrue(books.getValue("04-knowledge").matches("source",true))
   assertTrue(books.getValue("08-review").sections.any{it.matches("ast.Attribute",true) && it.solution(true).contains("ast.Attribute")})
   assertFalse(books.getValue("02-replies").matches("impossible_search_829147",true))
  }

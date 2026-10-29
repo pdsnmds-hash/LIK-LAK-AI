@@ -17,8 +17,8 @@ import androidx.compose.ui.unit.dp
  val context=LocalContext.current
  val photo=remember(asset){context.assets.open("images/$asset").use{BitmapFactory.decodeStream(it)}.asImageBitmap()}
  Column(verticalArrangement=Arrangement.spacedBy(12.dp)) {
-  Image(photo,contentDescription=if(collaboration)tr(en,"Работа по документи в екип","People working together on documents") else tr(en,"Подредено работно пространство с лаптоп и документи","An organized workspace with a laptop and documents"),
+  Image(photo,contentDescription=if(collaboration)tr(en,"People working together on documents","People working together on documents") else tr(en,"An organized workspace with a laptop and documents","An organized workspace with a laptop and documents"),
    contentScale=ContentScale.Crop,modifier=Modifier.fillMaxWidth().aspectRatio(if(collaboration)1.8f else 1.6f).clip(RoundedCornerShape(16.dp)))
-  Kicker(if(collaboration)tr(en,"ХОРА И ПОСЛЕДОВАТЕЛНИ ПРОЦЕСИ","PEOPLE AND CONSISTENT PROCESSES") else tr(en,"РАБОТА, ПОДРЕДЕНА В ДЕТАЙЛИ","WORK, ORGANIZED IN DETAIL"))
+  Kicker(if(collaboration)tr(en,"PEOPLE AND CONSISTENT PROCESSES","PEOPLE AND CONSISTENT PROCESSES") else tr(en,"WORK, ORGANIZED IN DETAIL","WORK, ORGANIZED IN DETAIL"))
  }
 }
