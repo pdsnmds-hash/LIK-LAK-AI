@@ -1,0 +1,74 @@
+{
+  "ollama": {
+    "title": "Ollama Local API",
+    "url": "https://docs.ollama.com/api/introduction",
+    "reviewed": "2026-10-28",
+    "en": "Install Ollama on your computer, download a licensed local model and run ollama serve. Local API needs no key; cloud models use external services. Check RAM and BG/EN quality. Runs on your computer, not inside this app.",
+    "bg": "Инсталирайте Ollama на компютър, изтеглете лицензирана локална модель и изпълнете ollama serve. Локалният API не изисква ключ; облачните модели използват външни услуги. Проверете RAM и BG/EN качество. Работи на компютъра, извън приложението.",
+    "pricing": ""
+  },
+  "openai": {
+    "title": "OpenAI Responses API",
+    "url": "https://developers.openai.com/api/reference/python/resources/responses/methods/create",
+    "reviewed": "2026-10-28",
+    "en": "Create a project and billing account in OpenAI Platform. Install openai on your backend and set a server-side API key. Choose an available model explicitly. Never embed a key in an APK. Requests leave the device. Review current usage prices before deployment.",
+    "bg": "Създайте проект и активирайте плащане в OpenAI Platform. Инсталирайте openai на сървъра и задайте сървърен API ключ. Изберете изрично достъпен модел. Не поставяйте ключ в APK. Заявките напускат устройството. Проверете актуалните цени преди внедряване.",
+    "pricing": "https://openai.com/api/pricing/"
+  },
+  "gemini": {
+    "title": "Gemini API",
+    "url": "https://ai.google.dev/gemini-api/docs/quickstart",
+    "reviewed": "2026-10-28",
+    "en": "Obtain a key in Google AI Studio and use the official SDK on a backend. Check model availability, region, quotas and current prices. Requests go to the cloud; this app makes none.",
+    "bg": "Получете ключ в Google AI Studio и използвайте официалния SDK на сървър. Проверете модел, регион, квоти и актуални цени. Заявките отиват в облака; приложението не ги изпълнява.",
+    "pricing": "https://ai.google.dev/gemini-api/docs/pricing"
+  },
+  "sbert": {
+    "title": "Sentence Transformers",
+    "url": "https://sbert.net/docs/quickstart.html",
+    "reviewed": "2026-10-28",
+    "en": "On your computer: pip install sentence-transformers. Download and pin a model revision; check its license, storage and BG/EN retrieval quality. Inference can run locally after download. Installation needs a Python environment.",
+    "bg": "На компютър: pip install sentence-transformers. Изтеглете и фиксирайте ревизия на модел; проверете лиценз, място и качество на BG/EN търсене. След изтегляне изпълнението може да е локално. Нужна е Python среда.",
+    "pricing": ""
+  },
+  "sklearn": {
+    "title": "scikit-learn",
+    "url": "https://scikit-learn.org/stable/modules/feature_extraction.html",
+    "reviewed": "2026-10-28",
+    "en": "On your computer: pip install scikit-learn. TfidfVectorizer provides a local lexical baseline, not generative AI. Pin package versions and evaluate on a labelled set; vocabulary and training corpus affect results.",
+    "bg": "На компютър: pip install scikit-learn. TfidfVectorizer е локална лексикална база, не генеративен AI. Фиксирайте версиите и оценете върху означен набор; речникът и корпусът влияят на резултата.",
+    "pricing": ""
+  },
+  "pydantic": {
+    "title": "Pydantic",
+    "url": "https://docs.pydantic.dev/latest/",
+    "reviewed": "2026-10-28",
+    "en": "On your backend: pip install pydantic. Define required fields, ranges and enums, then validate before business actions. No API key needed. Schema validation does not verify factual claims.",
+    "bg": "На сървър: pip install pydantic. Определете задължителни полета, диапазони и изброявания; валидирайте преди бизнес действия. Не е нужен API ключ. Схемата не проверява фактическа вярност.",
+    "pricing": ""
+  },
+  "ocr": {
+    "title": "ML Kit Text Recognition Android",
+    "url": "https://developers.google.com/ml-kit/vision/text-recognition/v2/android",
+    "reviewed": "2026-10-28",
+    "en": "Use the official Android text-recognition dependency for the required script and pin its version. Bundled and downloaded models have different delivery requirements. Verify the supported-language list; the Latin package does not establish Bulgarian Cyrillic support. No OCR engine is bundled here.",
+    "bg": "Използвайте официалната Android зависимост за нужната писменост и фиксирайте версия. Вградените и изтегляните модели имат различни изисквания. Проверете списъка с езици; латинският пакет не доказва поддръжка на българска кирилица. Тук няма вграден OCR двигател.",
+    "pricing": ""
+  },
+  "litert": {
+    "title": "LiteRT-LM",
+    "url": "https://github.com/google-ai-edge/LiteRT-LM",
+    "reviewed": "2026-10-28",
+    "en": "Follow the repository Android/Kotlin setup on a separate development project. Choose a compatible licensed model. Check RAM, download size, runtime support and BG/EN on a real device. This app contains no model runtime.",
+    "bg": "Следвайте Android/Kotlin инструкциите от хранилището в отделен проект. Изберете съвместим лицензиран модел. Проверете RAM, размер, runtime и BG/EN на реално устройство. Приложението не включва моделно изпълнение.",
+    "pricing": ""
+  },
+  "mlkit": {
+    "title": "ML Kit GenAI",
+    "url": "https://developers.google.com/ml-kit/genai",
+    "reviewed": "2026-10-28",
+    "en": "Check each GenAI API for supported devices, languages, Android version and AICore requirements. Follow the official Android integration instructions. Availability is device-specific; there is no universal on-device model in this app.",
+    "bg": "Проверете всеки GenAI API за устройства, езици, Android версия и AICore. Следвайте официалните Android инструкции. Достъпността зависи от устройството; приложението няма универсален локален модел.",
+    "pricing": ""
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "staged_files_in_temporary_index": 80,
+  "required_fixture_included": true,
+  "private_files_excluded": true,
+  "ignore_patterns_verified": [
+    "private.jks",
+    "private.keystore",
+    "release/upload-key.properties",
+    "release/signing/key.jks",
+    "generated-signing/key.jks",
+    "local.properties",
+    "dist/app.apk",
+    "app-release.aab",
+    "source.zip"
+  ],
+  "actual_repository_created": false
+}

@@ -1,0 +1,23 @@
+{
+  "local_checks": [
+    "Both workflow YAML files parse; all embedded bash syntax valid; root = generator",
+    "Signing bridge: missing variables, file paths, 0600, no overwrite, Java Properties Unicode/special-character round-trip",
+    "SDK mock: highest Pkg.Revision selected by full executable path; exact API 37.0 / build-tools 36.0.0 arguments",
+    "AAB verifier: matching JAR signature accepted; unsigned, missing ABI and embedded private file rejected",
+    "All temporary fixtures and test-only keys removed"
+  ],
+  "status": "PASS",
+  "cloud_build": "NOT RUN",
+  "registered_upload_key": "User confirmed 2026-10-29: app not uploaded, new key required",
+  "sdk_package_ids": [
+    "platforms;android-37.0",
+    "build-tools;36.0.0"
+  ],
+  "release_gradle_test": "PASS: isolated checkout, disposable TEST certificate; real AAB verified; test outputs deleted",
+  "unsigned_release_guard": "PASS",
+  "gradle_tasks": [
+    "testDebugUnitTest",
+    "lintDebug",
+    "bundleRelease"
+  ]
+}

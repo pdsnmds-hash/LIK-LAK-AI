@@ -1,0 +1,5 @@
+PASS: Both workflow YAML files parse; all embedded bash syntax valid; root = generator
+PASS: Signing bridge: missing variables, file paths, 0600, no overwrite, Java Properties Unicode/special-character round-trip
+PASS: SDK mock: highest Pkg.Revision selected by full executable path; exact API 37.0 / build-tools 36.0.0 arguments
+PASS: AAB verifier: matching JAR signature accepted; unsigned, missing ABI and embedded private file rejected
+PASS: All temporary fixtures and test-only keys removed

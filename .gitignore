@@ -1,0 +1,20 @@
+.gradle/
+.gradle-home/
+**/build/
+local.properties
+*.keystore
+.idea/
+.DS_Store
+
+# Private signing material and local/CI outputs
+*.jks
+*.p12
+*.pfx
+release/*.properties
+release/signing/
+generated-signing/
+*.apk
+*.aab
+*.zip
+dist/
+**/__pycache__/
